@@ -38,49 +38,86 @@
 //   );
 // }
 
-import Word from "./components/words";
+// import Word from "./components/words";
 
-async function getData() {
-  const res = await fetch(
-    "https://api.dictionaryapi.dev/api/v2/entries/en/cat"
-  );
+// async function getData() {
+//   const res = await fetch(
+//     "https://api.dictionaryapi.dev/api/v2/entries/en/phone"
+//   );
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
+//   if (!res.ok) {
+//     throw new Error("Failed to fetch data");
+//   }
 
-  const data = await res.json();
+//   const data = await res.json();
 
-  if (
-    !Array.isArray(data) ||
-    data.length === 0 ||
-    !data[0].phonetics ||
-    !data[0].meanings
-  ) {
-    throw new Error("Invalid data format");
-  }
+//   if (
+//     !Array.isArray(data) ||
+//     data.length === 0 ||
+//     !data[0].phonetics ||
+//     !data[0].meanings
+//   ) {
+//     throw new Error("Invalid data format");
+//   }
 
-  return data[0];
-}
+//   return data[0];
+// }
 
-export default async function Home() {
-  let wordData = null;
-  try {
-    wordData = await getData();
-    console.log(wordData);
-  } catch (error) {
-    console.error(error);
-  }
+// export default async function Home() {
+//   let wordData = null;
+//   try {
+//     wordData = await getData();
+//     console.log(wordData);
+//   } catch (error) {
+//     console.error(error);
+//   }
 
-  return (
-    <>
-      {wordData && (
-        <Word
-          word={wordData.word}
-          phonetic={wordData.phonetics[0]?.text}
-          meaning={wordData.meanings[0]?.definitions[0]?.definition}
-        />
-      )}
-    </>
-  );
-}
+//   return (
+//     <>
+//       {wordData && (
+//         <Word
+//           word={wordData.word}
+//           phonetic={wordData.phonetics[0]?.text}
+//           meaning={wordData.meanings[0]?.definitions[0]?.definition}
+//         />
+//       )}
+//     </>
+//   );
+// }
+
+// const BASE_URL = "https://api.scripture.api.bible";
+// const API_KEY = process.env.API_KEY;
+// async function getData() {
+//   try {
+//     const res = await fetch(BASE_URL + "/v1/bibles", {
+//       headers: {
+//         "Content-Type": "application/json",
+//         "api-key": API_KEY,
+//       },
+//     });
+
+//     if (!res.ok) {
+//       throw new Error("Failed to fetch data");
+//     }
+
+//     return res.json();
+//   } catch (error) {
+//     console.error(error);
+//     throw error; // Re-throw the error to handle it in the caller
+//   }
+// }
+// export default async function Home() {
+//   try {
+//     const data = await getData();
+//     console.log(data);
+//     return (
+//       <div className="text-4xl text-white">
+//         <div>{data.data.map((x) => x.name)}</div>
+//       </div>
+//     );
+//   } catch (error) {
+//     // Handle the error, e.g., show an error message to the user
+//     console.error("Failed to fetch data:", error);
+//     return <div className="text-4xl text-white">error</div>;
+//   }
+// }
