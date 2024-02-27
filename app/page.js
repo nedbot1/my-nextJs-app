@@ -85,39 +85,108 @@
 //   );
 // }
 
-const BASE_URL = "https://api.scripture.api.bible";
-const API_KEY = process.env.API_KEY;
-async function getData() {
-  try {
-    const res = await fetch(BASE_URL + "/v1/bibles", {
-      headers: {
-        "Content-Type": "application/json",
-        "api-key": API_KEY,
-      },
-    });
+// const BASE_URL = "https://api.scripture.api.bible";
+// const API_KEY = process.env.API_KEY;
+// async function getData() {
+//   try {
+//     const res = await fetch(BASE_URL + "/v1/bibles", {
+//       headers: {
+//         "Content-Type": "application/json",
+//         "api-key": API_KEY,
+//       },
+//     });
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch data");
+//     if (!res.ok) {
+//       throw new Error("Failed to fetch data");
+//     }
+
+//     return res.json();
+//   } catch (error) {
+//     console.error(error);
+//     throw error; // Re-throw the error to handle it in the caller
+//   }
+// }
+// export default async function Home() {
+//   try {
+//     const data = await getData();
+//     console.log(data);
+//     return (
+//       <div className="text-4xl text-white">
+//         <div>{data.data.map((x) => x.name)}</div>
+//       </div>
+//     );
+//   } catch (error) {
+//     // Handle the error, e.g., show an error message to the user
+//     console.error("Failed to fetch data:", error);
+//     return <div className="text-4xl text-white">error</div>;
+//   }
+// }
+
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+
+export default function Home() {
+  const [quotes, setQuotes] = useState([]);
+  const [text, setText] = useState("HELLO");
+  const [error, setError] = useState("");
+
+  const handleDelete = (index) => {
+    const newQuotes = [...quotes];
+    newQuotes.splice(index, 1);
+    setQuotes(newQuotes);
+  };
+
+  const handleSave = () => {
+    if (text.trim() === "") {
+      setError("Input cannot be empty !!!");
+      return;
     }
 
-    return res.json();
-  } catch (error) {
-    console.error(error);
-    throw error; // Re-throw the error to handle it in the caller
-  }
-}
-export default async function Home() {
-  try {
-    const data = await getData();
-    console.log(data);
-    return (
-      <div className="text-4xl text-white">
-        <div>{data.data.map((x) => x.name)}</div>
+    const newQuotes = quotes.concat([text]);
+    setQuotes(newQuotes);
+    setText("");
+    setError("");
+  };
+
+  return (
+    <div className="mx-auto w-fit mt-80 ">
+      <div>MY TO DOS </div>
+      <div className="text-4xl text-cyan-500 text-center">
+        {quotes.map((quote, index) => {
+          return (
+            <div key={index} className="flex items-center justify-between">
+              <p>{quote}</p>
+              <button
+                className="text-sm text-white  border-red rounded px-2 bg-red-600 hover:bg-red-400"
+                onClick={() => handleDelete(index)}
+              >
+                Delete
+              </button>
+            </div>
+          );
+        })}
       </div>
-    );
-  } catch (error) {
-    // Handle the error, e.g., show an error message to the user
-    console.error("Failed to fetch data:", error);
-    return <div className="text-4xl text-white">error</div>;
-  }
+      <div className="text-8xl text-green-500 text-center mt-12">{text}</div>
+      <input
+        className="text-2xl text-black mt-12 px-2"
+        placeholder="whatz on your mind"
+        type="text"
+        value={text}
+        onChange={(event) => setText(event.target.value)}
+      />
+      <button
+        className="text-2xl ml-8 font-bold px-2 rounded bg-cyan-400 hover:bg-cyan-300"
+        onClick={handleSave}
+      >
+        Save Text
+      </button>
+      {error && <p className="text-red-500 mt-2">{error}</p>}
+
+      <Link href="/second-page">
+        <h1 className="text-blue-500 mt-4">Go to Another Page</h1>
+      </Link>
+    </div>
+  );
 }
