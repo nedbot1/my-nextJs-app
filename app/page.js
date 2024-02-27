@@ -85,39 +85,39 @@
 //   );
 // }
 
-// const BASE_URL = "https://api.scripture.api.bible";
-// const API_KEY = process.env.API_KEY;
-// async function getData() {
-//   try {
-//     const res = await fetch(BASE_URL + "/v1/bibles", {
-//       headers: {
-//         "Content-Type": "application/json",
-//         "api-key": API_KEY,
-//       },
-//     });
+const BASE_URL = "https://api.scripture.api.bible";
+const API_KEY = process.env.API_KEY;
+async function getData() {
+  try {
+    const res = await fetch(BASE_URL + "/v1/bibles", {
+      headers: {
+        "Content-Type": "application/json",
+        "api-key": API_KEY,
+      },
+    });
 
-//     if (!res.ok) {
-//       throw new Error("Failed to fetch data");
-//     }
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
 
-//     return res.json();
-//   } catch (error) {
-//     console.error(error);
-//     throw error; // Re-throw the error to handle it in the caller
-//   }
-// }
-// export default async function Home() {
-//   try {
-//     const data = await getData();
-//     console.log(data);
-//     return (
-//       <div className="text-4xl text-white">
-//         <div>{data.data.map((x) => x.name)}</div>
-//       </div>
-//     );
-//   } catch (error) {
-//     // Handle the error, e.g., show an error message to the user
-//     console.error("Failed to fetch data:", error);
-//     return <div className="text-4xl text-white">error</div>;
-//   }
-// }
+    return res.json();
+  } catch (error) {
+    console.error(error);
+    throw error; // Re-throw the error to handle it in the caller
+  }
+}
+export default async function Home() {
+  try {
+    const data = await getData();
+    console.log(data);
+    return (
+      <div className="text-4xl text-white">
+        <div>{data.data.map((x) => x.name)}</div>
+      </div>
+    );
+  } catch (error) {
+    // Handle the error, e.g., show an error message to the user
+    console.error("Failed to fetch data:", error);
+    return <div className="text-4xl text-white">error</div>;
+  }
+}
