@@ -38,53 +38,6 @@
 //   );
 // }
 
-// import Word from "./components/words";
-
-// async function getData() {
-//   const res = await fetch(
-//     "https://api.dictionaryapi.dev/api/v2/entries/en/phone"
-//   );
-
-//   if (!res.ok) {
-//     throw new Error("Failed to fetch data");
-//   }
-
-//   const data = await res.json();
-
-//   if (
-//     !Array.isArray(data) ||
-//     data.length === 0 ||
-//     !data[0].phonetics ||
-//     !data[0].meanings
-//   ) {
-//     throw new Error("Invalid data format");
-//   }
-
-//   return data[0];
-// }
-
-// export default async function Home() {
-//   let wordData = null;
-//   try {
-//     wordData = await getData();
-//     console.log(wordData);
-//   } catch (error) {
-//     console.error(error);
-//   }
-
-//   return (
-//     <>
-//       {wordData && (
-//         <Word
-//           word={wordData.word}
-//           phonetic={wordData.phonetics[0]?.text}
-//           meaning={wordData.meanings[0]?.definitions[0]?.definition}
-//         />
-//       )}
-//     </>
-//   );
-// }
-
 // const BASE_URL = "https://api.scripture.api.bible";
 // const API_KEY = process.env.API_KEY;
 // async function getData() {
@@ -112,7 +65,7 @@
 //     console.log(data);
 //     return (
 //       <div className="text-4xl text-white">
-//         <div>{data.data.map((x) => x.name)}</div>
+//         <div>{data.data.map((x) => x.description)}</div>
 //       </div>
 //     );
 //   } catch (error) {
@@ -151,7 +104,7 @@ export default function Home() {
   };
 
   return (
-    <div className="mx-auto w-fit mt-80 ">
+    <div className="mx-auto w-fit mt-40 ">
       <div>MY TO DOS </div>
       <div className="text-4xl text-cyan-500 text-center">
         {quotes.map((quote, index) => {
@@ -171,7 +124,8 @@ export default function Home() {
       <div className="text-8xl text-green-500 text-center mt-12">{text}</div>
       <input
         className="text-2xl text-black mt-12 px-2"
-        placeholder="whatz on your mind"
+        plac
+        eholder="whatz on your mind"
         type="text"
         value={text}
         onChange={(event) => setText(event.target.value)}
